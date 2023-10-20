@@ -73,12 +73,12 @@ We initialise the Serial port of the Arduino and the pins in this section. This 
 void setup() {
   //baudrate of 9600
   Serial.begin(9600);
-  pinMode(LEFT_LDR, INPUT);
-  pinMode(RIGHT_LDR, INPUT); 
-  pinMode(LEFT_MOTOR_DIR, OUTPUT);
-  pinMode(RIGHT_MOTOR_DIR, OUTPUT);
-  pinMode(LEFT_MOTOR_SPEED, OUTPUT);
-  pinMode(RIGHT_MOTOR_SPEED, OUTPUT);
+  pinMode(L_LDR_PIN, INPUT);
+  pinMode(R_LDR_PIN, INPUT); 
+  pinMode(L_MOTOR_DIR_PIN, OUTPUT);
+  pinMode(R_MOTOR_DIR_PIN, OUTPUT);
+  pinMode(L_MOTOR_SPD_PIN, OUTPUT);
+  pinMode(R_MOTOR_SPD_PIN, OUTPUT);
 }
 ```
 
