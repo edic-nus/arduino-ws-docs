@@ -147,3 +147,104 @@ void loop() {
 
 
 
+
+
+Here's the combined code for this section:
+```cpp
+#include <Arduino.h>
+
+//pins to be used
+int L_LDR_PIN = A1;
+int R_LDR_PIN = A0;
+int L_MOTOR_DIR_PIN = 5;
+int R_MOTOR_DIR_PIN = 6;
+int L_MOTOR_SPD_PIN = 11;
+int R_MOTOR_SPD_PIN = 10;
+
+//to flip direction, change from 0 to 1 and viceversa
+int LEFT_FORWARD = 0;
+int RIGHT_FORWARD = 1;
+
+//calibration values, determine based on your robot
+int L_THRESHOLD = 250;
+int R_THRESHOLD = 400;
+int LEFT_SPEED  = 120;
+int RIGHT_SPEED = 100;
+
+// do not touch
+int LEFT_BACKWARD = 1 - LEFT_FORWARD;
+int RIGHT_BACKWARD = 1 - RIGHT_FORWARD;
+int previous_edge;
+int left_edge = 1;
+int right_edge = 0;
+
+//functions for controlling the robot
+void turn_left();
+void turn_right();
+void move_forward();
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(L_LDR_PIN, INPUT);
+  pinMode(R_LDR_PIN, INPUT); 
+  pinMode(L_MOTOR_DIR_PIN, OUTPUT);
+  pinMode(R_MOTOR_DIR_PIN, OUTPUT);
+  pinMode(L_MOTOR_SPD_PIN, OUTPUT);
+  pinMode(R_MOTOR_SPD_PIN, OUTPUT);
+  delay(1000);
+}
+
+void loop() {
+ int readingl, readingr;
+  readingl = analogRead(L_LDR_PIN);
+  readingr = analogRead(R_LDR_PIN);
+  Serial.print("Left: ");
+  Serial.print(readingl);
+  Serial.print("| Right LDR: ");
+  Serial.println(readingr);
+  if (readingl >= L_THRESHOLD){
+    //do something
+  }
+  else if (readingr >= R_THRESHOLD){
+    //do something else
+  }
+//  stop_robot();
+  delay(10);
+}
+
+
+//functions for controlling the robot
+void turn_left(){
+      digitalWrite(L_MOTOR_DIR_PIN, LEFT_BACKWARD);
+      digitalWrite(R_MOTOR_DIR_PIN, RIGHT_FORWARD);
+      int spd = abs((LEFT_BACKWARD*255)-LEFT_SPEED);
+      analogWrite(L_MOTOR_SPD_PIN, spd);
+      spd = abs((RIGHT_FORWARD*255)-RIGHT_SPEED);
+      analogWrite(R_MOTOR_SPD_PIN, spd);
+}
+
+void turn_right(){
+      digitalWrite(L_MOTOR_DIR_PIN, LEFT_FORWARD);
+      digitalWrite(R_MOTOR_DIR_PIN, RIGHT_BACKWARD);
+      int spd = abs((LEFT_FORWARD*255)-LEFT_SPEED);
+      analogWrite(L_MOTOR_SPD_PIN, spd);
+      spd = abs((RIGHT_BACKWARD*255)-RIGHT_SPEED);
+      analogWrite(R_MOTOR_SPD_PIN, spd);
+}
+
+void move_forward(){
+      digitalWrite(L_MOTOR_DIR_PIN, LEFT_FORWARD);
+      digitalWrite(R_MOTOR_DIR_PIN, RIGHT_FORWARD);
+      int spd = abs((LEFT_FORWARD*255)-LEFT_SPEED);
+      analogWrite(L_MOTOR_SPD_PIN, spd);
+      spd = abs((RIGHT_FORWARD*255)-RIGHT_SPEED);
+      analogWrite(R_MOTOR_SPD_PIN, spd);
+}
+
+void stop_robot(){
+      digitalWrite(L_MOTOR_DIR_PIN, 0);
+      digitalWrite(R_MOTOR_DIR_PIN, 0);
+      analogWrite(L_MOTOR_SPD_PIN, 0);
+      analogWrite(R_MOTOR_SPD_PIN, 0);
+}
+```
