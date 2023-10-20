@@ -76,6 +76,49 @@ void setup() {
 }
 ```
 
+### If else
+
+To implement logic in code, we use if and else statements to check for conditions. For the line following robot, our conditions will be tied closely to the values that we obtain from the LDR. 
+
+In most programming languages including C++, the following operators can be used to compare two different variables:
+
+| Operator | Description |  
+| ----------- | ----------- |  
+| A == B | Checks if A and B are equal |  
+| A != B | Checks if A and B are NOT equal |  
+| A >  B | Checks if A is more than B |  
+| A <  B | Checks if A is less than B |  
+| A >= B | Checks if A is more than or equals to B |  
+| A <= B | Checks if A is less than or equals to B |    
+
+In C, each if or else block needs to be surrounded by curly brackets. 
+The general syntax for if statements in C++ is as follows:
+
+```cpp
+if (A == B){
+  //code that runs if it is true
+} else if (A < B) {
+  //code that runs if A is not equals to B but A is less than B
+} else {
+  //code that runs otherwise, what condition is remaining?
+}
+```
+
+
+For our line following robot, we need to check if each LDR is over a black line or in the white space. To do this, we can check the LDR value and compare it to what value it would be when it is over a white background.
+
+```cpp
+ int readingl, readingr;
+  readingl = analogRead(L_LDR_PIN);
+  readingr = analogRead(R_LDR_PIN);
+  if (readingl <= L_WHITE_THRESHOLD){
+  // do something
+  }
+  if (readingr <= R_WHITE_THRESHOLD) {
+  //do another thing
+  }
+```
+
 ## Loop
 
 This is the part of the code that runs continuously. Upon reaching the last delay(1000), it restarts back to the begging of the loop until the power to the Arduino is switched off.
@@ -96,36 +139,5 @@ void loop() {
 }
 ```
 
-The following is the actual implementation of the method discussed. Take some time to go over each line of the code. If you get lost, compare it to the diagrams in [Design](./line_follow_design.md).
-```cpp
-void loop() {
- int readingl, readingr;
-  readingl = analogRead(L_LDR_PIN);
-  readingr = analogRead(R_LDR_PIN);
-  if (readingl <= WHITE_THRESHOLD){
-    if (readingr <= WHITE_THRESHOLD){
-      //both left and white LDRs are currently in the white
-      //check what previous edge was
-      if (previous_edge == left_edge){
-        turn_right();
-      } else if (previous_edge == right_edge){
-        turn_left();
-      }
-    } else {
-      //left side is in white, right side is in black  
-      previous_edge = left_edge;
-      move_forward();
-    }
-  } else if (readingr <= WHITE_THRESHOLD) {
-      //left side is black, right side is white
-      previous_edge = right_edge;
-      move_forward();
-  } else {
-    //both left and right side is in black, checkpoint?
-    move_forward();
-  }
-  delay(10);
-}
-```
 
 

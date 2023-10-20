@@ -6,7 +6,6 @@ Assumptions made:
 - only 2 sensors are being used to detect the presence of the black line 
 - the distance between the 2 sensors are fixed and can't be changed during operation 
 - the robot has 2 motor-powered wheels
-
 For our implementation, the 2 sensors we have chosen are Light Dependent Resistors (LDRs). By shining a light on the ground using an array of Light Emitting Diodes (LEDs), the resistance of the LDRs, when pointed towards the floor, vary with the light level reflected back to it. The black strip will reflect less light compared to the white floor, allowing us to differentiate between the two. 
 
 The method we have chosen involves 3 different scenarios: 
@@ -63,4 +62,36 @@ We can represent our method in terms of a flow chart. This is the closest repres
 
 ![line_follow_flow](./img/line_follow_flow.png)
 
+## Example Code 
 
+The following is the code implementation of the method discussed. Take some time to go over each line of the code. If you get lost, compare it to the diagrams above.
+```cpp
+void loop() {
+ int readingl, readingr;
+  readingl = analogRead(L_LDR_PIN);
+  readingr = analogRead(R_LDR_PIN);
+  if (readingl <= WHITE_THRESHOLD){
+    if (readingr <= WHITE_THRESHOLD){
+      //both left and white LDRs are currently in the white
+      //check what previous edge was
+      if (previous_edge == left_edge){
+        turn_right();
+      } else if (previous_edge == right_edge){
+        turn_left();
+      }
+    } else {
+      //left side is in white, right side is in black  
+      previous_edge = left_edge;
+      move_forward();
+    }
+  } else if (readingr <= WHITE_THRESHOLD) {
+      //left side is black, right side is white
+      previous_edge = right_edge;
+      move_forward();
+  } else {
+    //both left and right side is in black, checkpoint?
+    move_forward();
+  }
+  delay(10);
+}
+```

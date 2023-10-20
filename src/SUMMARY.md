@@ -9,5 +9,5 @@
     - [Common pitfalls](./pitfalls.md)
 - [Example 1: Line Following](./line_following.md)
     - [Connections](./line_follow_connections.md)
-    - [Design](./line_follow_design.md)
     - [Code](./line_follow_code.md)
+    - [Design](./line_follow_design.md)
