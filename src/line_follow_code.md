@@ -33,22 +33,28 @@ We then declare functions to help us with controlling the robot. This makes it m
 void turn_left(){
       digitalWrite(L_MOTOR_DIR_PIN, LEFT_BACKWARD);
       digitalWrite(R_MOTOR_DIR_PIN, RIGHT_FORWARD);
-      analogWrite(L_MOTOR_SPD_PIN, LEFT_SPEED);
-      analogWrite(R_MOTOR_SPD_PIN, RIGHT_SPEED);
+      int spd = abs((LEFT_BACKWARD) * 255)- LEFT_SPEED);
+      analogWrite(L_MOTOR_SPD_PIN, spd);
+      spd = abs((RIGHT_FORWARD)*255)- RIGHT_SPEED);
+      analogWrite(R_MOTOR_SPD_PIN,spd);
 }
 
 void turn_right(){
       digitalWrite(L_MOTOR_DIR_PIN, LEFT_FORWARD);
       digitalWrite(R_MOTOR_DIR_PIN, RIGHT_BACKWARD);
-      analogWrite(L_MOTOR_SPD_PIN, LEFT_SPEED);
-      analogWrite(R_MOTOR_SPD_PIN, RIGHT_SPEED);
+      int spd = abs((LEFT_FORWARD*255)-LEFT_SPEED);
+      analogWrite(L_MOTOR_SPD_PIN, spd);
+      spd = abs((RIGHT_BACKWARD*255)-RIGHT_SPEED);
+      analogWrite(R_MOTOR_SPD_PIN, spd);
 }
 
 void move_forward(){
       digitalWrite(L_MOTOR_DIR_PIN, LEFT_FORWARD);
       digitalWrite(R_MOTOR_DIR_PIN, RIGHT_FORWARD);
-      analogWrite(L_MOTOR_SPD_PIN, LEFT_SPEED);
-      analogWrite(R_MOTOR_SPD_PIN, RIGHT_SPEED);
+      int spd = abs((LEFT_FORWARD*255)-LEFT_SPEED);
+      analogWrite(L_MOTOR_SPD_PIN, spd);
+      spd = abs((RIGHT_FORWARD*255)-RIGHT_SPEED);
+      analogWrite(R_MOTOR_SPD_PIN, spd);
 }
 
 void stop_robot(){
