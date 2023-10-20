@@ -6,3 +6,8 @@
     - [Hello, World!](./hello_world.md)
     - [Highs and lows](./digital.md)
     - [Analog?](./analog.md)
+    - [Common pitfalls](./pitfalls.md)
+- [Example 1: Line Following](./line_following.md)
+    - [Design](./line_follow_design.md)
+    - [Code](./line_follow_code.md)
+    - [Connections](./line_follow_connections.md)

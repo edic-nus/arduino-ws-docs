@@ -23,7 +23,7 @@ A 1 Hz PWM signal with a duty cycle of 25% will have it's high portion be 0.25s,
 
 ## PWM on Arduino
 
-> Make sure the selected pins are capable of PWM!
+> Make sure the selected pins are capable of PWM! On Arduino platforms, the PWM capable pins are denoted by a ~ beside the number.
 
 ```cpp
 void setup() {
@@ -39,6 +39,10 @@ void loop() {
 
 ## Reading analog values 
 
+While PWM allows a digital device to emulate analog voltage, **reading** analog values are as important. To do this, MCUs are equipped with a hardware module called an Analog Digital Converter, or ADC for short. On the Arduino UNO, the pins capable of reading analog values are denoted by A0, A1, A2, A3, A4, and A5.
+
+When using analog pins on the Arduino UNO, there is no need to set them up using pinMode. This is because these pins can **only function as input pins**. This isn't the case with all MCUs!
+
 ```cpp 
 void setup() {
     Serial.begin(9600); 
@@ -51,5 +55,4 @@ void loop() {
     Serial.println(analog_value); // print out the read value
 }
 ```
-
-> When using analog pins on the Arduino UNO, there is no need to set them up using pinMode. This is because these pins can **only function as input pins**. This isn't the case with all MCUs!
+> What value does the function analogRead() actually give you? Hint: It's not voltage, yet. 
